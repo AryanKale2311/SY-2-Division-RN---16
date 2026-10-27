@@ -1,0 +1,7 @@
+f = open("input.txt", "r")
+print("current pointer position:", f.tell())
+print(f.read())
+print("current pointer position:", f.tell())
+f.seek(10)
+print("current pointer position:", f.tell())
+print(f.read())
