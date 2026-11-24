@@ -1,0 +1,29 @@
+[
+    {
+        "Roll": "1",
+        "Name": "Aryan",
+        "Branch": "CSE",
+        "Marks": "450",
+        "Total": 450,
+        "Percentage": 90.0,
+        "Grade": "A"
+    },
+    {
+        "Roll": "2",
+        "Name": "Rahul",
+        "Branch": "IT",
+        "Marks": "380",
+        "Total": 380,
+        "Percentage": 76.0,
+        "Grade": "B"
+    },
+    {
+        "Roll": "3",
+        "Name": "Amit",
+        "Branch": "CSE",
+        "Marks": "320",
+        "Total": 320,
+        "Percentage": 64.0,
+        "Grade": "C"
+    }
+]

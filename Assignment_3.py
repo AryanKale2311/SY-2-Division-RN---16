@@ -1,44 +1,37 @@
-class PaymentStrategy:
+
+class Payment:
     def pay(self, amount):
-        print("No payment method selected")
+        pass
 
-class CreditCardPayment(PaymentStrategy):
-    def __init__(self, card_number):
-        self.card_number = card_number
 
+class CreditCard(Payment):
     def pay(self, amount):
-        print("Paid", amount, "using Credit Card:", self.card_number)
+        print("Paid", amount, "using Credit Card")
 
 
-class UpiPayment(PaymentStrategy):
-    def __init__(self, upi_id):
-        self.upi_id = upi_id
-
+class UPI(Payment):
     def pay(self, amount):
-        print("Paid", amount, "using UPI ID:", self.upi_id)
+        print("Paid", amount, "using UPI")
 
 
-class CashOnDelivery(PaymentStrategy):
+class PayPal(Payment):
     def pay(self, amount):
-        print("Rs.", amount, "will be paid on delivery (Cash)")
+        print("Paid", amount, "using PayPal")
 
-class PaymentContext:
+
+class PaymentProcessor:
     def __init__(self, strategy):
         self.strategy = strategy
 
-    def set_strategy(self, strategy):
-        self.strategy = strategy
-
-    def make_payment(self, amount):
+    def process_payment(self, amount):
         self.strategy.pay(amount)
 
-amount = 1500
 
-payment = PaymentContext(CreditCardPayment("1234567890123456"))
-payment.make_payment(amount)
+p1 = PaymentProcessor(CreditCard())
+p1.process_payment(1000)
 
-payment.set_strategy(UpiPayment("student@upi"))
-payment.make_payment(amount)
+p2 = PaymentProcessor(UPI())
+p2.process_payment(500)
 
-payment.set_strategy(CashOnDelivery())
-payment.make_payment(amount)
+p3 = PaymentProcessor(PayPal())
+p3.process_payment(1500)

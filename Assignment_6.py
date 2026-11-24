@@ -1,52 +1,40 @@
-def knapsack(weights, values, n, capacity, memo):
 
-    # Base condition
-    if n == 0 or capacity == 0:
+def knapsack_top(wt, val, W, n, dp):
+    if n == 0 or W == 0:
         return 0
 
-    # If already calculated
-    if memo[n][capacity] != -1:
-        return memo[n][capacity]
+    if dp[n][W] != -1:
+        return dp[n][W]
 
-    # If current item is too heavy
-    if weights[n - 1] > capacity:
-        memo[n][capacity] = knapsack(
-            weights, values, n - 1, capacity, memo
-        )
-
+    if wt[n - 1] <= W:
+        include = val[n - 1] + knapsack_top(wt, val, W - wt[n - 1], n - 1, dp)
+        exclude = knapsack_top(wt, val, W, n - 1, dp)
+        dp[n][W] = max(include, exclude)
     else:
-        # Include current item
-        include = values[n - 1] + knapsack(
-            weights,
-            values,
-            n - 1,
-            capacity - weights[n - 1],
-            memo
-        )
+        dp[n][W] = knapsack_top(wt, val, W, n - 1, dp)
 
-        # Exclude current item
-        exclude = knapsack(
-            weights, values, n - 1, capacity, memo
-        )
-
-        # Store maximum value
-        memo[n][capacity] = max(include, exclude)
-
-    return memo[n][capacity]
+    return dp[n][W]
 
 
-# Input
-weights = [2, 1, 3, 2]
-values = [12, 10, 20, 15]
-capacity = 5
+def knapsack_bottom(wt, val, W, n):
+    dp = [[0 for j in range(W + 1)] for i in range(n + 1)]
 
-n = len(weights)
+    for i in range(1, n + 1):
+        for j in range(W + 1):
+            if wt[i - 1] <= j:
+                dp[i][j] = max(val[i - 1] + dp[i - 1][j - wt[i - 1]], dp[i - 1][j])
+            else:
+                dp[i][j] = dp[i - 1][j]
 
-# Create memoization table
-memo = [[-1] * (capacity + 1) for _ in range(n + 1)]
+    return dp[n][W]
 
-# Find maximum value
-result = knapsack(weights, values, n, capacity, memo)
 
-print("Maximum value:", result)
+wt = [2, 3, 4, 5]
+val = [3, 4, 5, 6]
+W = 5
+n = len(wt)
 
+dp = [[-1 for j in range(W + 1)] for i in range(n + 1)]
+
+print("Top-Down:", knapsack_top(wt, val, W, n, dp))
+print("Bottom-Up:", knapsack_bottom(wt, val, W, n))

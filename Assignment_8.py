@@ -1,6 +1,15 @@
-with open("input.txt", "r") as f:
-    lines = f.readlines()
+f = open("input.txt", "r")
+
+lines = f.readlines()
+
 print("Total lines:", len(lines))
-first_two = lines[:2]
-with open("output.txt", "w") as f:
-    f.writelines(first_two)
+
+f.close()
+
+f = open("output.txt", "w")
+
+f.writelines(lines[:2])
+
+f.close()
+
+print("First two lines copied successfully")
